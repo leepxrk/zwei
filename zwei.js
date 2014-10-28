@@ -1,4 +1,4 @@
-//zwei-0.3.js   2014.10.27   by L3've
+//zwei-0.3.js   2014.08.18   by L3've
 //                                                                                 `.`
 //                                                                               .hMMMm:
 //                                                                               hMMMMMM
@@ -18,8 +18,9 @@
 //
 //
 
-    window.zwei = (function () {
+(function () {
     "use strict";
+
     function Zwei(elem) {
         var i;
         for (i = 0; i < elem.length; i++) {
@@ -302,7 +303,6 @@
     };
 
 
-
     //移动元素
     //zwei.Drag.init(拖拽的对象,移动的对象,最小X,最大X,最小Y,最大Y,只垂直移动,只横向移动);
     zwei.Drag = {
@@ -456,19 +456,19 @@
     };
 
 
-
     //   事件处理器
-    zwei.evtOnEmit = function(){
+    zwei.evtOnEmit = function () {
         function EventEmitter() {
             this.events = {};
         }
+
         //绑定事件函数
-        EventEmitter.prototype.on = function(eventName, callback) {
+        EventEmitter.prototype.on = function (eventName, callback) {
             this.events[eventName] = this.events[eventName] || [];
             this.events[eventName].push(callback);
         };
         //触发事件函数
-        EventEmitter.prototype.emit = function(eventName, _) {
+        EventEmitter.prototype.emit = function (eventName, _) {
             var events = this.events[eventName],
                 args = Array.prototype.slice.call(arguments, 1),
                 i, m;
@@ -482,8 +482,14 @@
         };
         return new EventEmitter();
     };
+    if (typeof define === "function" && define.amd) {
+        define("zwei", [], function () {
+            return zwei;
+        });
+    } else {
+        window.zwei =  zwei;
+    }
 
-    return zwei;
 }());
 
 
