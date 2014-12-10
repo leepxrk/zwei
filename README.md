@@ -4,7 +4,7 @@ zwei
 
 JavaScript Library
 
-# DOM的获取
-<code>
-zwei.elem("");
-</code>
+## DOM的获取
+
+    zwei.elem("");
+
