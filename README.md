@@ -4,13 +4,13 @@ zwei
 
 JavaScript Library
 
-## DOM的获取
+### DOM的获取
 
     zwei.elem("");
 
 采用`document.querySelectorAll()`来实现
 
-### DOM常用方法
+#### DOM常用方法
 
      `zweiDOM.forEach(callback)`
 callback带2个参数,当前的this和i(和原生的forEach一样)
