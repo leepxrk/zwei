@@ -1,5 +1,10 @@
 zwei
 ====
-一个完全不顾向后兼容的JavaScript库~
+一个自娱自乐的JavaScript库~
 
 JavaScript Library
+
+# DOM的获取
+<code>
+zwei.elem("");
+</code>
