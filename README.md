@@ -47,17 +47,21 @@ ajax请求,类型固定为post,数据固定为json
 消息栏  
 
 整体的class="zwei_prompt"  标题class="zwei_prompt_title" 内容class="zwei_prompt_content"
+
      news = new zwei.News({
-     
        "allnewsId": "父亲元素",
-       
         "title": "标题",            //默认 "天外来音"
-        
         "content": "内容",          //默认 "你到底想说什么?!"
-        
         "color": "边框颜色",             //默认 "black"  支持各种颜色格式
-        
         "interval": "存在时间"      //默认  3
-        
      });
 ***
+    zwei.Drag.init(拖拽的对象,移动的对象,最小X,最大X,最小Y,最大Y,只垂直移动,只横向移动);
+拖拽.这代码是参考网上的代码的,基本上没什么改动,性能感觉是我用的最好的
+***
+    zwei.evtOnEmit()
+返回一个EventEmitter事件对象,该对象有2个方法
+
+     EventEmitter.on(eventName, callback)
+     EventEmitter.emit(eventName)
+订阅发布的设计模式
