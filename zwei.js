@@ -257,7 +257,6 @@
                 }, 500);
             }
             news.style.transform = "scale(0.3)";
-
             news.style.webkitTransform = "scale(0.3)";
         };
         this.init = function () {
@@ -478,22 +477,6 @@
     }
 
 }());
-
-
-//动画帧
-if (!window.requestAnimationFrame) {
-    window.requestAnimationFrame = (
-        window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame ||
-            window.oRequestAnimationFrame ||
-            window.msRequestAnimationFrame ||
-            function (callback) {
-                "use strict";
-                return window.setTimeout(callback, 1000 / 60);
-            }
-        );
-}
-
 
 //日期格式化    new Date().format("yyyy-MM-dd hh:mm:ss");
 Date.prototype.format = function (format) {
