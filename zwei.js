@@ -1,4 +1,4 @@
-//zwei-0.3.js   2014.08.20   by L3've
+//zwei-0.3.js   2014.12.17   by L3've
 //                                                                                 `.`
 //                                                                               .hMMMm:
 //                                                                               hMMMMMM
@@ -116,19 +116,6 @@
             return document.defaultView.getComputedStyle(obj, null)[attr];
         }
     };
-    //加载函数
-    zwei.addLoadEvent = function (func) {
-        var oldonload = window.onload;
-        if (typeof window.onload !== "function") {
-            window.onload = func;
-        } else {
-            window.onload = function () {
-                oldonload();
-                func();
-            };
-        }
-    };
-
 
     //ajax方法
     zwei.post = function (url, parameter, callback) {
@@ -247,7 +234,7 @@
         }
     };
 
-//消息条  整体的class="zwei_prompt"  标题class="zwei_prompt_title" 内容class="zwei_prompt_content"
+//消息栏  整体的class="zwei_prompt"  标题class="zwei_prompt_title" 内容class="zwei_prompt_content"
 //news = new zwei.News({
 //    "allnewsId": "父亲元素",
 //    "title": "标题",
