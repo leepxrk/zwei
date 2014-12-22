@@ -173,15 +173,18 @@
             text,
             newpw,
             ispw = bool || false;  //是否为密码框
+            
+        if (document.createElement('input').hasOwnProperty('placeholder')) {
+            return;
+        }
+        
         if (typeof target === "string") {
             elem = document.getElementById(target);
         } else {
             elem = target;
         }
         text = elem.getAttribute("placeholder");
-        if (document.createElement('input').hasOwnProperty('placeholder')) {
-            return;
-        }
+
         if (ispw) {
             elem.style.display = "none";
             newpw = document.createElement("input");
