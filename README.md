@@ -2,6 +2,8 @@ zwei
 ====
 一个自娱自乐的JavaScript库~
 
+IE9死开去~连classList都不支持,别怪我
+
 ### DOM的获取
 
     zwei.elem("");
