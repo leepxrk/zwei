@@ -2,7 +2,7 @@ zwei
 ====
 一个自娱自乐的JavaScript库~
 
-IE9死开去~连classList都不支持,别怪我
+IE9死开去~连classList都不支持,别怪我 (patch.js勉强试试抢救了下)
 
 ### DOM的获取
 
@@ -10,7 +10,7 @@ IE9死开去~连classList都不支持,别怪我
 
 采用`document.querySelectorAll()`来实现
 
-#### DOM常用方法
+#### DOM常用函数
 
      zweiDOM.forEach(callback)
 callback带2个参数,当前的this和i(和原生的forEach一样)
@@ -26,7 +26,7 @@ evt为事件名,fn为回调,默认是冒泡false(无奈的兼容了IE~)
 ***
 
 
-## 常用的事件
+## 常用的函数
 
      zwei.getStyle(obj, attr)
 获取外部CSS样式,也就是最后渲染好之后的CSS样式.obj为DOM对象,attr为属性名
