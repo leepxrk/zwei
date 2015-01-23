@@ -167,58 +167,6 @@
     };
 
 
-    //优雅降级placeholder
-    zwei.placeHolder = function (target, bool) {
-        var elem,
-            text,
-            newpw,
-            ispw = bool || false;  //是否为密码框
-            
-        if (document.createElement('input').hasOwnProperty('placeholder')) {
-            return;
-        }
-        
-        if (typeof target === "string") {
-            elem = document.getElementById(target);
-        } else {
-            elem = target;
-        }
-        text = elem.getAttribute("placeholder");
-
-        if (ispw) {
-            elem.style.display = "none";
-            newpw = document.createElement("input");
-            newpw.setAttribute("type", "text");
-            newpw.setAttribute("class", elem.className);
-            newpw.value = text;
-            zwei.insertAfter(newpw, elem);
-            newpw.onfocus = function () {
-                newpw.style.display = "none";
-                elem.style.display = "inline-block";
-                elem.focus();
-            };
-            elem.onblur = function () {
-                if (elem.value == "") {
-                    newpw.style.display = "inline-block";
-                    elem.style.display = "none";
-                }
-            };
-        } else {
-            elem.value = text;
-            elem.onfocus = function () {
-                if (elem.value == text) {
-                    elem.value = "";
-                }
-
-            };
-            elem.onblur = function () {
-                if (elem.value == "") {
-                    elem.value = text;
-                }
-            };
-        }
-    };
-
 
     //上下居中
     zwei.elemCenter = function (target) {
