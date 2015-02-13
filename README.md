@@ -7,7 +7,14 @@ zwei
 `patch.js`勉强试试抢救了下兼容性问题
 
 `tool.js`是一些方便的方法工具,也有前端组件
-### DOM的获取
+
+## 进化后得到的技能
+
+1. 双向数据绑定
+2. 待定...
+
+
+## DOM的获取
 
     zwei.elem("");
 
@@ -29,7 +36,7 @@ evt为事件名,fn为回调,默认是冒泡false(无奈的兼容了IE~)
 ***
 
 
-### 常用的函数
+## 常用的函数
 ###zwei.js
      zwei.post(url, parameter, callback)
 ajax请求,类型固定为post,数据固定为json
