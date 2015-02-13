@@ -52,8 +52,7 @@
             return this.forEach(function (el) {
                 el.setAttribute(attr, val);
             });
-        }
-        if (!val) {
+        } else {
             return this.mapOne(function (el) {
                 return el.getAttribute(attr);
             });
@@ -182,7 +181,47 @@
                 events[i].apply(null, args);
             }
         };
+
         return new EventEmitter();
+    };
+
+    zwei.mwm = function (id, callback) {
+        var liten = zwei.evtOnEmit(),
+            _mvvm_DOM = {},
+            father = zwei.elem("#" + id)[0],
+            child = father.getElementsByTagName("*"),
+            childTex;
+        console.time("mvvm");
+        for (var i = child.length; i--;) {
+            childTex = child[i].innerHTML.toString();
+            if (/[\{][\{][0-9a-z]*[\}][\}$]/gi.test(childTex)) {
+                childTex = /[\{][\{][0-9a-z]*[\}][\}$]/i.exec(childTex).toString().replace(/^\{\{*/, '').replace(/\}\}*$/, '');
+                _mvvm_DOM[childTex] = child[i];
+                gset(child[i], childTex);
+//                child[i][childTex] = 40;
+            }
+        }
+        console.timeEnd("mvvm");
+
+        function MVM() {
+        }
+
+        callback(_mvvm_DOM);
+        function gset(dom, val) {
+            var tip = new Date().getTime();
+
+            Object.defineProperty(dom, val, {
+                set: function (x) {
+                    this[tip] = x;
+                    dom.innerHTML = x;
+                },
+                get: function () {
+                    return this[tip];
+                }
+            });
+        }
+
+        return new MVM();
     };
 
 
@@ -191,9 +230,8 @@
             return zwei;
         });
     } else {
-        window.zwei =  zwei;
+        window.zwei = zwei;
     }
-
 }());
 
 
