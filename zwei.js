@@ -185,9 +185,8 @@
         return new EventEmitter();
     };
 
-    zwei.mwm = function (id, callback) {
-        var liten = zwei.evtOnEmit(),
-            _mvvm_DOM = {},
+    zwei.blink = function (id, callback) {
+        var _blink_ = {},
             father = zwei.elem("#" + id)[0],
             child = father.getElementsByTagName("*"),
             childTex;
@@ -196,17 +195,15 @@
             childTex = child[i].innerHTML.toString();
             if (/[\{][\{][0-9a-z]*[\}][\}$]/gi.test(childTex)) {
                 childTex = /[\{][\{][0-9a-z]*[\}][\}$]/i.exec(childTex).toString().replace(/^\{\{*/, '').replace(/\}\}*$/, '');
-                _mvvm_DOM[childTex] = child[i];
+                child[i][childTex] = childTex;
+                _blink_[childTex] = child[i];
                 gset(child[i], childTex);
 //                child[i][childTex] = 40;
             }
         }
         console.timeEnd("mvvm");
 
-        function MVM() {
-        }
-
-        callback(_mvvm_DOM);
+        callback(_blink_);
         function gset(dom, val) {
             var tip = new Date().getTime();
 
@@ -221,7 +218,7 @@
             });
         }
 
-        return new MVM();
+//        return new MVM();
     };
 
 
