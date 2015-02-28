@@ -190,7 +190,6 @@
             father = zwei.elem("#" + id)[0],
             child = father.getElementsByTagName("*"),
             childTex;
-        console.time("mvvm");
         for (var i = child.length; i--;) {
             childTex = child[i].innerHTML.toString();
             if (/[\{][\{][0-9a-z]*[\}][\}$]/gi.test(childTex)) {
@@ -198,12 +197,14 @@
                 child[i][childTex] = childTex;
                 _blink_[childTex] = child[i];
                 gset(child[i], childTex);
-//                child[i][childTex] = 40;
             }
         }
-        console.timeEnd("mvvm");
+        callback(brief);
 
-        callback(_blink_);
+        function brief(val,cval) {
+          _blink_[val][val] = cval;
+        }
+
         function gset(dom, val) {
             var tip = new Date().getTime();
 
@@ -218,7 +219,6 @@
             });
         }
 
-//        return new MVM();
     };
 
 
