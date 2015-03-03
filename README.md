@@ -2,16 +2,18 @@ zwei
 ====
 一个自娱自乐的JavaScript库~
 
-`zwei.js`为主code,IE9连classList都不支持,别怪我 
+`zwei.js`为主code,对于IE的兼容只到IE8(其实是IE6,7没测试过,不感兴趣,也不打算兼容他们) 
 
 `patch.js`勉强试试抢救了下兼容性问题
 
 `tool.js`是一些方便的方法工具,也有前端组件
 
+`zweistyle.css`一些常用样式
+
 ## 进化后得到的技能
 
 1. 双向数据绑定(聪明化)
-2. 待定...
+2. 前端的库(工具组件)
 
 
 ## DOM的获取
