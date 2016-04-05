@@ -2,20 +2,6 @@ zwei
 ====
 一个自娱自乐的JavaScript库~
 
-`zwei.js`为主code,对于IE的兼容只到IE8(其实是IE6,7没测试过,不感兴趣,也不打算兼容他们) 
-
-`patch.js`勉强试试抢救了下兼容性问题
-
-`tool.js`是一些方便的方法工具,也有前端组件
-
-`zweistyle.css`一些常用样式
-
-## 进化后得到的技能
-
-1. 双向数据绑定(聪明化)
-2. 前端的库(工具组件)
-
-
 ## DOM的获取
 
 >zwei.elem("");
@@ -24,11 +10,11 @@ zwei
 
 ### DOM常用函数
 >zweiDOM.forEach(callback)
-   
+
 - callback带2个参数,当前的this和i(和原生的forEach一样)
 
->zweiDOM.attr(attr, val)     
-     
+>zweiDOM.attr(attr, val)
+
 - attr为查询获取修改的属性名,val为值,但val缺省时为查询
 
 >zweiDOM.css(name, val)
@@ -37,14 +23,14 @@ zwei
 
 >zweiDOM.on(evt, fn)
 
-- evt为事件名,fn为回调,默认是冒泡false(无奈的兼容了IE~)
+- evt为事件名,fn为回调,默认是冒泡false
+
+>hasClass  addClass  removeClass
+
+- 你懂的
 
 ## 常用的函数
 ###zwei.js
->zwei.post(url, parameter, callback)
-
-- ajax请求,类型固定为post,数据固定为json
-
 >zwei.insertAfter(newElement, targetElement)
 
 - 在某个DOM后面插入DOM
@@ -63,37 +49,6 @@ zwei
 - 数据绑定,第一个参数是父亲标签的ID,回调函数有一个参数方法m,方法带2个参数m(name,val),分别为绑定属性名与对应的值.
 
 ###tool.js
->zwei.elemCenter(target)
-
-- 让DOM上下居中,参数可以是ID或者DOM,对象必须设置`position:relative`
-
->zwei.getStyle(obj, attr)
-
-- 获取外部CSS样式,也就是最后渲染好之后的CSS样式.obj为DOM对象,attr为属性名
-
->zwei.News(param)
-
-- 消息栏  
-整体的class="zwei_prompt"  标题class="zwei_prompt_title" 内容class="zwei_prompt_content"
-
-     `news = new zwei.News({
-       "allnewsId": "父亲元素",
-        "title": "标题",            //默认 "天外来音"
-        "content": "内容",          //默认 "你到底想说什么?!"
-        "color": "边框颜色",             //默认 "black"  支持各种颜色格式
-        "interval": "存在时间"      //默认  3
-     });`
-
 > zwei.Drag.init(拖拽的对象,移动的对象,最小X,最大X,最小Y,最大Y,只垂直移动,只横向移动);
 
 - 拖拽.这代码是参考网上的代码的,基本上没什么改动,性能感觉是我用的最好的
-
-
-###patch.js
-1. `zwei.placeHolder(target, bool)`
-
- - bool为目标是否为密码输入框
-
-2. `hasClass``addClass``removeClass`代替`classList`
-
-3. 统一`requestAnimationFrame``cancelAnimationFrame`的写法
