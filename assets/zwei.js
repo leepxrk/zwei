@@ -80,9 +80,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	//
 	//
 	//
+	//
 	"use strict";
 
 	var _Object$defineProperty = __webpack_require__(3)["default"];
+
+	var _interopRequireDefault = __webpack_require__(9)["default"];
+
+	var _dataBindJs = __webpack_require__(6);
+
+	var _dataBindJs2 = _interopRequireDefault(_dataBindJs);
 
 	(function (window) {
 	    "use strict";
@@ -266,7 +273,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	    window.zwei = zwei;
 	})(window);
-	//
 
 /***/ },
 /* 3 */
@@ -300,6 +306,143 @@ return /******/ (function(modules) { // webpackBootstrap
 	  getSymbols: $Object.getOwnPropertySymbols,
 	  each:       [].forEach
 	};
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = __webpack_require__(8)['default'];
+
+	var _classCallCheck = __webpack_require__(7)['default'];
+
+	var _Object$defineProperty = __webpack_require__(3)['default'];
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var blink = (function () {
+	    function blink(params) {
+	        _classCallCheck(this, blink);
+
+	        for (var target in params) {
+	            this[target] = {};
+	            for (var props in params[target]) {
+	                this[target][props] = params[target][props];
+	            }
+	        }
+	        return this;
+	    }
+
+	    _createClass(blink, [{
+	        key: 'bind',
+	        value: function bind(obj, props, callback) {
+	            var tip = new Date().getTime();
+	            _Object$defineProperty(this[obj], props, {
+	                get: function get() {
+	                    return this[tip];
+	                },
+	                set: function set(newValue) {
+	                    this[tip] = newValue;
+	                    callback(newValue);
+	                },
+	                configurable: true // 允许在稍后重定义这个属性
+	            });
+	        }
+	    }]);
+
+	    return blink;
+	})();
+
+	exports['default'] = blink;
+
+	var dataPool = {
+	    live: {
+	        'name': 'L3ve',
+	        'uid': 1,
+	        'img': 'http://fuck.you'
+	    },
+	    master: {
+	        'name': 'zwei',
+	        'rank': 7
+	    }
+	};
+	var testPool = {
+	    live: {
+	        liveVal: {
+	            name: 'l3ve'
+	        }
+	    }
+	};
+
+	var dataBind = new blink(dataPool);
+	dataBind.bind('live', 'name', function (newData) {
+	    console.log('it will be changed');
+	});
+	dataBind.live.name = 'fuck';
+	console.log(dataBind.live.name);
+	// dataPool.live.name = 'Bob'
+	// dataBind.updata('live','name','get');
+	module.exports = exports['default'];
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	exports["default"] = function (instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	};
+
+	exports.__esModule = true;
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _Object$defineProperty = __webpack_require__(3)["default"];
+
+	exports["default"] = (function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];
+	      descriptor.enumerable = descriptor.enumerable || false;
+	      descriptor.configurable = true;
+	      if ("value" in descriptor) descriptor.writable = true;
+
+	      _Object$defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }
+
+	  return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+	    if (staticProps) defineProperties(Constructor, staticProps);
+	    return Constructor;
+	  };
+	})();
+
+	exports.__esModule = true;
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	exports["default"] = function (obj) {
+	  return obj && obj.__esModule ? obj : {
+	    "default": obj
+	  };
+	};
+
+	exports.__esModule = true;
 
 /***/ }
 /******/ ])

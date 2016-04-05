@@ -17,6 +17,7 @@
 //
 //
 //
+import blink from './dataBind.js';
 (function(window) {
     "use strict";
 
@@ -202,5 +203,3 @@
     };
     window.zwei = zwei;
 } (window));
-
-

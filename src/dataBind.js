@@ -1,26 +1,21 @@
-class blink {
+export default class blink {
     constructor(params) {
         for (let target in params) {
             this[target] = {};
-            this[target].dataPool = {};
             for (let props in params[target]) {
-                this[target].dataPool[props] = params[target][props];
+                this[target][props] = params[target][props];
             }
         }
         return this;
     }
-    updata(target,props,val) {
-        console.log(this[target].dataPool[props]);
-        this[target].dataPool[props] = val;
-    }
     bind(obj, props, callback) {
-        Object.defineProperty(this[obj].dataPool, props, {
+        var tip = new Date().getTime();
+        Object.defineProperty(this[obj], props, {
             get: function() {
-                console.log(this);
-                return this[obj].dataPool[props];
+                return this[tip];
             },
             set: function(newValue) {
-                this[obj].dataPool[props] = newValue;
+                this[tip] = newValue;
                 callback(newValue);
             },
             configurable: true // 允许在稍后重定义这个属性
@@ -48,11 +43,9 @@ let testPool = {
 
 let dataBind = new blink(dataPool);
 dataBind.bind('live', 'name', (newData) => {
-    // console.log(val,newVal);
-    // val = newVal;
     console.log('it will be changed');
-})
-
-console.log(dataBind.live.dataPool.name);
+});
+dataBind.live.name = 'fuck';
+console.log(dataBind.live.name);
 // dataPool.live.name = 'Bob'
 // dataBind.updata('live','name','get');
