@@ -1,4 +1,4 @@
-//zwei-0.3.js   2014.12.17   by L3've
+//zwei-0.4.js   2016.4.5   by L3've
 //                                                                                 `.`
 //                                                                               .hMMMm:
 //                                                                               hMMMMMM
@@ -17,8 +17,7 @@
 //
 //
 //
-
-(function () {
+(function(window) {
     "use strict";
 
     function Zwei(elem) {
@@ -29,7 +28,7 @@
         this.length = elem.length;
     }
 
-    Zwei.prototype.map = function (callback) {
+    Zwei.prototype.map = function(callback) {
         var results = [],
             i = 0;
         for (i; i < this.length; i++) {
@@ -37,63 +36,84 @@
         }
         return results;
     };
-    Zwei.prototype.mapOne = function (callback) {
+    Zwei.prototype.mapOne = function(callback) {
         var m = this.map(callback);
         return m.length > 1 ? m : m[0];
     };
-    Zwei.prototype.forEach = function (callback) {
+    Zwei.prototype.forEach = function(callback) {
         this.map(callback);
         return this;
     };
 
     //获取or修改DOM的属性
-    Zwei.prototype.attr = function (attr, val) {
+    Zwei.prototype.attr = function(attr, val) {
         if (val) {
-            return this.forEach(function (el) {
+            return this.forEach(function(el) {
                 el.setAttribute(attr, val);
             });
         } else {
-            return this.mapOne(function (el) {
+            return this.mapOne(function(el) {
                 return el.getAttribute(attr);
             });
         }
     };
 
     //修改DOM的css样式
-    Zwei.prototype.css = function (name, value) {
-        return this.forEach(function (el) {
+    Zwei.prototype.css = function(name, value) {
+        return this.forEach(function(el) {
             el.style[name] = value;
         });
     };
 
+    Zwei.prototype.hasClass = function(cName) {
+        return !!this[0].className.match(new RegExp("(\\s|^)" + cName + "(\\s|$)"));
+        // ( \\s|^ ) 判断前面是否有空格 （\\s | $ ）判断后面是否有空格 两个感叹号为转换为布尔值 以方便做判断
+    }
+    Zwei.prototype.addClass = function(cName) {
+        this.forEach(function(el) {
+            if (!el.className.match(new RegExp("(\\s|^)" + cName + "(\\s|$)"))) {
+                el.className += " " + cName;
+            }
+        })
+        return this;
+    }
+    Zwei.prototype.removeClass = function(cName) {
+        this.forEach(function(el) {
+            if (!!el.className.match(new RegExp("(\\s|^)" + cName + "(\\s|$)"))) {
+                el.className = el.className.replace(new RegExp("(\\s|^)" + cName + "(\\s|$)"), " ");
+            }
+        })
+        return this;
+    }
+
 
     //事件
-    Zwei.prototype.on = (function () {
+    Zwei.prototype.on = (function() {
         if (document.addEventListener) {
-            return function (evt, fn) {
-                return this.forEach(function (el) {
+            return function(evt, fn) {
+                return this.forEach(function(el) {
                     el.addEventListener(evt, fn, false);
                 });
             };
         }
         if (document.attachEvent) {
-            return function (evt, fn) {
-                return this.forEach(function (el) {
+            return function(evt, fn) {
+                return this.forEach(function(el) {
                     el.attachEvent("on" + evt, fn);
                 });
             };
         }
         if (!document.attachEvent && !document.addEventListener) {
-            return function (evt, fn) {
-                return this.forEach(function (el) {
+            return function(evt, fn) {
+                return this.forEach(function(el) {
                     el["on" + evt] = fn;
                 });
             };
         }
-    }());
+    } ());
 
     var zwei = {
-        elem: function (selector) {
+        elem: function(selector) {
             var elem;
             if (typeof selector === "string") {
                 elem = document.querySelectorAll(selector);
@@ -106,48 +126,8 @@
             return new Zwei(elem);
         }
     };
-
-    //ajax方法
-    zwei.post = function (url, parameter, callback) {
-        var xmlHttp,
-            cb,
-            parm;
-        if (typeof parameter === "function") {
-            cb = parameter;
-            parm = null;
-
-        } else {
-            cb = callback;
-            parm = JSON.stringify(parameter);
-        }
-        if (window.XMLHttpRequest) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlHttp = new XMLHttpRequest();
-        } else {
-            // code for IE6, IE5
-            xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        if (xmlHttp == null) {
-            alert('Shit Update your browser！');
-            return;
-        }
-        xmlHttp.open("POST", url, true);
-        xmlHttp.setRequestHeader("Content-Type", "application/json");
-        xmlHttp.send(parm);
-        xmlHttp.onreadystatechange = function () {
-            if (xmlHttp.readyState == 1 || xmlHttp.readyState == 2 || xmlHttp.readyState == 3) {
-                // 本地提示：加载中/处理中
-                console.log("loading");
-            }
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-                //回调
-                cb(xmlHttp.responseText);
-            }
-        };
-    };
-
     //在元素后插入新元素
-    zwei.insertAfter = function (newElement, targetElement) {
+    zwei.insertAfter = function(newElement, targetElement) {
         var parent = targetElement.parentNode;
         if (parent.lastChild == targetElement) {
             parent.appendChild(newElement);
@@ -158,18 +138,18 @@
 
 
     //   事件处理器
-    zwei.evtOnEmit = function () {
+    zwei.evtOnEmit = function() {
         function EventEmitter() {
             this.events = {};
         }
 
         //绑定事件函数
-        EventEmitter.prototype.on = function (eventName, callback) {
+        EventEmitter.prototype.on = function(eventName, callback) {
             this.events[eventName] = this.events[eventName] || [];
             this.events[eventName].push(callback);
         };
         //触发事件函数
-        EventEmitter.prototype.emit = function (eventName, _) {
+        EventEmitter.prototype.emit = function(eventName) {
             var events = this.events[eventName],
                 args = Array.prototype.slice.call(arguments, 1),
                 i, m;
@@ -185,7 +165,7 @@
         return new EventEmitter();
     };
 
-    zwei.blink = function (id, callback) {
+    zwei.blink = function(id, callback) {
         var _blink_ = {},
             father = zwei.elem("#" + id)[0],
             child = father.getElementsByTagName("*"),
@@ -201,34 +181,26 @@
         }
         callback(brief);
 
-        function brief(val,cval) {
-          _blink_[val][val] = cval;
+        function brief(val, cval) {
+            _blink_[val][val] = cval;
         }
 
         function gset(dom, val) {
             var tip = new Date().getTime();
 
             Object.defineProperty(dom, val, {
-                set: function (x) {
+                set: function(x) {
                     this[tip] = x;
                     dom.innerHTML = x;
                 },
-                get: function () {
+                get: function() {
                     return this[tip];
                 }
             });
         }
 
     };
-
-
-    if (typeof define === "function" && define.amd) {
-        define("zwei", [], function () {
-            return zwei;
-        });
-    } else {
-        window.zwei = zwei;
-    }
-}());
+    window.zwei = zwei;
+} (window));
 
 

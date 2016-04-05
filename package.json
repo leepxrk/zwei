@@ -1,0 +1,26 @@
+{
+  "name": "zWei",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.html",
+  "dependencies": {
+    "babel-core": "^5.8.34",
+    "babel-loader": "^5.4.0",
+    "babel-runtime": "^5.8.25",
+    "node-libs-browser": "^0.5.2",
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.14.0",
+    "whatwg-fetch": "^0.10.1"
+  },
+  "scripts": {
+    "dev": "webpack --watch",
+    "start": "webpack-dev-server --hot --quiet",
+    "deploy": "BUILD_DEV=false  webpack -p"
+  },
+  "author": "L3ve",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/l3ve/zwei.git"
+  }
+}
